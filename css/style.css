@@ -1,0 +1,279 @@
+body {
+  background-color: #131214;
+  font-family: "Nunito Sans", sans-serif;
+  color: #eae6f2;
+}
+
+sup {
+  font-size: 0.75em;
+}
+
+img {
+  display: block;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.nav-icon {
+  width: 50px;
+}
+
+.nav-title {
+  font-size: 1.5rem;
+  margin-top: 15px;
+}
+
+input {
+  background: none;
+  border: none;
+  color: #fff;
+  width: 90%;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 500px;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  background-color: #b5a1e5;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 500px;
+  cursor: pointer;
+}
+
+.input-search {
+  background-color: #1d1c1f;
+  border-radius: 500px;
+  position: relative;
+  padding: 8px 15px;
+  color: #fff;
+  width: 25%;
+}
+
+input::placeholder {
+  color: #fff;
+}
+
+/* Styling for autofill input fields */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  color-adjust: exact !important;
+}
+
+.container-fluid {
+  padding: 20px !important;
+}
+
+.aside-top {
+  background-color: #1d1c1f;
+  border-radius: 25px;
+  padding: 20px;
+  margin-bottom: var(--bs-gutter-x);
+}
+
+.nav-bar {
+  padding: 1rem;
+  background-color: #131214;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-bar.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.aside-top h2 {
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+.aside-bottom {
+  background-color: #1d1c1f;
+  border-radius: 25px;
+}
+
+aside {
+  img {
+    height: 80px;
+  }
+}
+
+.aside-top {
+  p {
+    font-size: 30px;
+  }
+}
+aside {
+  h6 {
+    color: #7b7980;
+  }
+  p {
+    color: #fff;
+  }
+}
+
+.forecast-days img {
+  height: 40px;
+}
+
+.forecast-days p {
+  margin: 0;
+}
+
+.forecast-days p {
+  color: #7b7980;
+}
+
+.today-deatails {
+  background-color: #1d1c1f;
+  border-radius: 25px;
+  padding: 20px;
+}
+
+.air-quality,
+.sun-details,
+.humidity,
+.moon-details,
+.rain-details {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  padding: 20px;
+}
+
+p,
+span {
+  color: #7b7980;
+}
+
+.air-quality i,
+.sun-details i,
+.moon-details i,
+.humidity i,
+.rain-details i {
+  font-size: 2rem;
+}
+
+.air-quality span,
+.sun-details span,
+.moon-details span,
+.rain-details span:not(.rain-details h4 span) {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+  font-size: 0.9rem;
+}
+
+.air-quality h4,
+.sun-details h4,
+.moon-details h4,
+.humidity h4,
+.rain-details h4 {
+  font-size: 2rem;
+}
+
+.material-symbols-rounded {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.Today-icon {
+  font-size: 3rem !important;
+  color: #fff;
+}
+
+.text-prec {
+  color: inherit;
+  font-size: 0.65em;
+}
+
+.card-item-hour {
+  min-width: calc((100% - 7rem) / 8);
+  background-color: #1d1c1f;
+  border-radius: 25px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.card-item-hour img {
+  height: 70px;
+  margin-bottom: 10px;
+}
+
+.card-item-hour p {
+  color: #fff;
+}
+
+.hours {
+  padding-bottom: 8px;
+  overflow: auto;
+}
+
+.air-btn {
+  background-color: #64fe00;
+  font-size: 1.1rem;
+  color: #131214;
+  padding: 5px 10px;
+  margin: 0;
+  border-radius: 10px;
+  transform: translateY(-20%);
+}
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  background-color: #131214;
+  z-index: 10000;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #ffffff;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.nav-bar {
+  display: none;
+}
+
+.item {
+  width: calc((100% / 4) - .50rem);
+  background-color: #1d1c1f;
+  border-radius: 25px;
+}
