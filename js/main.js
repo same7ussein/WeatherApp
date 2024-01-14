@@ -6,12 +6,13 @@ const inputSearch = document.getElementById("inputSearch");
 const locationBtn = document.getElementById("locationBtn");
 const airBtn = document.querySelector(".air-btn");
 const loadingIndicator = document.getElementById("loadingIndicator");
+const loadingIndicatorInput = document.getElementById("loadingIndicatorInput");
 const sideBar = document.querySelector("aside");
 const autocompleteContainer = document.getElementById("autocompleteContainer");
 
 const API_KEY = "ff909213e07c4b6781a194915240501";
 const API_BASE_URL = "https://api.weatherapi.com/v1/forecast.json";
-const SEARCH_API_BASE_URL = "http://api.weatherapi.com/v1/search.json";
+const SEARCH_API_BASE_URL = "https://api.weatherapi.com/v1/search.json";
 
 window.addEventListener("scroll", function () {
   var navBar = document.querySelector(".nav-bar");
@@ -150,7 +151,7 @@ function todayInfo(
   airBtn.style.backgroundColor = "yellow";
   todayHighlights.innerHTML = `
         <div class="col-lg-6">
-  <div class="air-quality my-3">
+  <div class="air-quality my-2">
     <div class="d-flex align-items-center justify-content-between">
       <p>Air Quality Index</p>
       <p class="air-btn" style="background-color: ${color}" ;>${airIndexText}</p>
@@ -183,7 +184,7 @@ function todayInfo(
   </div>
 </div>
 <div class="col-lg-6">
-              <div class="rain-details mb-2">
+              <div class="rain-details  my-2">
                 <p>Rain & Wind</p>
                 <div class="d-flex align-items-start gap-5 rain-wind">
                   <div class="d-flex align-items-center gap-4">
@@ -341,7 +342,6 @@ function getDaysForecast(finalResponse) {
     daysForecast.innerHTML = dayscartona;
   }
 }
-
 function success(pos) {
   const crd = pos.coords;
   let location = `${crd.latitude},${crd.longitude}`;
@@ -349,23 +349,11 @@ function success(pos) {
 }
 
 function error(err) {
-  if (err.code === 1) {
-    showPermissionInstructions();
+  if (err.code === err.PERMISSION_DENIED) {
+    locationBtn.style.pointerEvents = "none";
+    getCurrentData(API_KEY, "cairo");
   } else {
     alert("Error getting location: " + err.message);
-  }
-}
-
-function showPermissionInstructions() {
-  const showInstructions = confirm(
-    "Location access denied. Do you want instructions on how to enable it?"
-  );
-  if (showInstructions) {
-    alert(
-      "Please go to your browser settings and enable location access for this site."
-    );
-  } else {
-    alert("Location access denied. Some features may not work properly.");
   }
 }
 
@@ -383,6 +371,8 @@ const extractLocationInfo = (item) => ({
 inputSearch.addEventListener("input", function () {
   const inputValue = this.value.trim();
   if (inputValue.length >= 3) {
+    loadingIndicatorInput.style.display = "flex";
+    try {
       fetch(`${SEARCH_API_BASE_URL}?key=${API_KEY}&q=${inputValue}`)
         .then((response) => response.json())
         .then((data) => {
@@ -390,9 +380,15 @@ inputSearch.addEventListener("input", function () {
           showAutocompleteSuggestions(locations);
         })
         .catch((error) => {
-          console.error("Error fetching location suggestions:", error);
+          console.error("An error occurred:", error.message);
+        })
+        .finally(() => {
+          loadingIndicatorInput.style.display = "none";
         });
-    
+    } catch (error) {
+      console.error("An error occurred:", error.message);
+      loadingIndicatorInput.style.display = "none";
+    }
   } else {
     autocompleteContainer.style.display = "none";
   }
