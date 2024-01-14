@@ -6,8 +6,12 @@ const inputSearch = document.getElementById("inputSearch");
 const locationBtn = document.getElementById("locationBtn");
 const airBtn = document.querySelector(".air-btn");
 const loadingIndicator = document.getElementById("loadingIndicator");
+const sideBar = document.querySelector("aside");
+const autocompleteContainer = document.getElementById("autocompleteContainer");
+
 const API_KEY = "ff909213e07c4b6781a194915240501";
-const API_BASE_URL = "http://api.weatherapi.com/v1/forecast.json";
+const API_BASE_URL = "https://api.weatherapi.com/v1/forecast.json";
+const SEARCH_API_BASE_URL = "http://api.weatherapi.com/v1/search.json";
 
 window.addEventListener("scroll", function () {
   var navBar = document.querySelector(".nav-bar");
@@ -45,24 +49,32 @@ const options = {
 
 async function getCurrentData(key, location) {
   loadingIndicator.style.display = "flex";
-  let response = await fetch(
-    `${API_BASE_URL}?key=${key}&q=${location}&days=7&aqi=yes&alerts=yes`
-  );
-  if (response.status == 200) {
-    let finalResponse = await response.json();
-    let currentLocation = finalResponse.location;
-    let currentData = finalResponse.current;
-    let astroData = finalResponse.forecast.forecastday[0].astro;
-    let formattedDate = formattDate(currentData);
-    todayInfo(
-      currentData,
-      finalResponse,
-      astroData,
-      currentLocation,
-      formattedDate
+  try {
+    let response = await fetch(
+      `${API_BASE_URL}?key=${key}&q=${location}&days=7&aqi=yes&alerts=yes`
     );
-    daysHourDetails(finalResponse);
-    getDaysForecast(finalResponse);
+
+    if (response.ok) {
+      let finalResponse = await response.json();
+      let currentLocation = finalResponse.location;
+      let currentData = finalResponse.current;
+      let astroData = finalResponse.forecast.forecastday[0].astro;
+      let formattedDate = formattDate(currentData);
+      todayInfo(
+        currentData,
+        finalResponse,
+        astroData,
+        currentLocation,
+        formattedDate
+      );
+      daysHourDetails(finalResponse);
+      getDaysForecast(finalResponse);
+    } else {
+      console.error(`API request failed with status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error.message);
+  } finally {
     loadingIndicator.style.display = "none";
   }
 }
@@ -122,7 +134,7 @@ function todayInfo(
     case 8:
     case 9:
       airIndexText = "High";
-      color = "green";
+      color = "#64fe00";
       break;
     case 10:
       airIndexText = "Very High";
@@ -170,7 +182,6 @@ function todayInfo(
     </div>
   </div>
 </div>
-
 <div class="col-lg-6">
               <div class="rain-details mb-2">
                 <p>Rain & Wind</p>
@@ -338,20 +349,81 @@ function success(pos) {
 }
 
 function error(err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
+  if (err.code === 1) {
+    showPermissionInstructions();
+  } else {
+    alert("Error getting location: " + err.message);
+  }
+}
+
+function showPermissionInstructions() {
+  const showInstructions = confirm(
+    "Location access denied. Do you want instructions on how to enable it?"
+  );
+  if (showInstructions) {
+    alert(
+      "Please go to your browser settings and enable location access for this site."
+    );
+  } else {
+    alert("Location access denied. Some features may not work properly.");
+  }
 }
 
 navigator.geolocation.getCurrentPosition(success, error, options);
 
-inputSearch.addEventListener("keyup", function (event) {
-  if (this.value.length >= 3) {
-    getCurrentData(API_KEY, this.value);
-    if (event.key === "Enter") {
-      this.value = "";
-    }
-  }
-});
-
 locationBtn.addEventListener("click", function () {
   navigator.geolocation.getCurrentPosition(success, error, options);
 });
+
+const extractLocationInfo = (item) => ({
+  name: item.name,
+  country: item.country,
+});
+
+inputSearch.addEventListener("input", function () {
+  const inputValue = this.value.trim();
+  if (inputValue.length >= 3) {
+      fetch(`${SEARCH_API_BASE_URL}?key=${API_KEY}&q=${inputValue}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const locations = data.map(extractLocationInfo);
+          showAutocompleteSuggestions(locations);
+        })
+        .catch((error) => {
+          console.error("Error fetching location suggestions:", error);
+        });
+    
+  } else {
+    autocompleteContainer.style.display = "none";
+  }
+});
+
+function showAutocompleteSuggestions(locations) {
+  if (locations.length > 0) {
+    const suggestionItems = locations
+      .map((location) => {
+        return `<div class="autocomplete-item" onclick="selectLocation('${location.name}', '${location.country}')">
+<div class="d-flex align-items-center gap-2">
+  <i class="fa-solid fa-location-dot"></i>
+  <div>
+  <div>${location.name}</div>
+    <div class="text-country">${location.country}</div>
+  </div>
+</div>
+</div>
+`;
+      })
+      .join("");
+    autocompleteContainer.innerHTML = suggestionItems;
+    autocompleteContainer.style.display = "block";
+  } else {
+    autocompleteContainer.style.display = "none";
+  }
+}
+
+function selectLocation(selectedName, selectedCountry) {
+  const selectedLocation = `${selectedName}, ${selectedCountry}`;
+  inputSearch.value = "";
+  autocompleteContainer.style.display = "none";
+  getCurrentData(API_KEY, selectedLocation);
+}

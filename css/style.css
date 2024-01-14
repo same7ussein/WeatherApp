@@ -2,8 +2,8 @@ body {
   background-color: #131214;
   font-family: "Nunito Sans", sans-serif;
   color: #eae6f2;
+  overflow-x: hidden;
 }
-
 sup {
   font-size: 0.75em;
 }
@@ -56,11 +56,11 @@ button {
 
 .input-search {
   background-color: #1d1c1f;
-  border-radius: 500px;
-  position: relative;
-  padding: 8px 15px;
+  border-radius: 20px;
+  padding: 10px 15px;
   color: #fff;
-  width: 25%;
+  width: 40%;
+  position: relative;
 }
 
 input::placeholder {
@@ -268,12 +268,48 @@ span {
   }
 }
 
-.nav-bar {
-  display: none;
-}
-
 .item {
-  width: calc((100% / 4) - .50rem);
+  width: calc((100% / 4) - 0.5rem);
   background-color: #1d1c1f;
   border-radius: 25px;
 }
+
+.scrolling {
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+}
+
+.autocomplete-container {
+  margin-top: 10px;
+  position: absolute;
+  background-color: #1d1c1f;
+  left: 0;
+  top: 45%;
+  right: 0%;
+ border-bottom-right-radius: 20px;
+ border-bottom-left-radius: 20px;
+  padding: 15px 0;
+  max-height: 250px;
+  overflow: auto;
+  z-index: 900;
+  display: none;
+}
+
+.autocomplete-item {
+  padding: 8px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.autocomplete-item:hover {
+  background-color:#2F2E32 ;
+  border-radius: 10px;
+}
+
+.text-country{
+  color: #7B7980;
+  font-size: 14px;
+}
+

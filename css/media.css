@@ -14,6 +14,12 @@
   }
 }
 
+@media screen and (max-width: 577px) {
+  .scrolling {
+    position: static;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .aside-top h2 {
     font-size: 2.5rem;
@@ -37,20 +43,24 @@
   .rain-details h4 {
     font-size: 1.5rem;
   }
-
+  .aside-top p {
+    font-size: 20px;
+  }
   .rain-wind {
     flex-direction: column;
   }
-
- 
-
   .sun-details > .d-flex,
   .moon-details > .d-flex {
     flex-direction: column;
   }
+
 }
 
 @media screen and (max-width: 768px) and (min-width: 576px) {
+  .scrolling {
+    position: sticky;
+  }
+
   .aside-top h2 {
     font-size: 3rem;
     font-weight: 500;
@@ -59,7 +69,39 @@
     font-size: 20px;
   }
 
-  .aside-bottom .col-5 p{
+  .aside-bottom .col-5 p {
     font-size: 14px;
   }
 }
+
+@media screen and (max-width: 820px) {
+  .input-search{
+    width: 50%;
+  }
+
+}
+
+@media screen and (max-width: 620px) {
+   .nav-title{
+    order: 1;
+  }
+
+  .input-search{
+    order: 3;
+    width: 70%;
+    margin: auto;
+  }
+
+  #locationBtn{
+    order: 2;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .input-search{
+    width: 100%;
+  }
+
+}
+
+

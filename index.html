@@ -27,7 +27,7 @@
     <div class="loading-spinner"></div>
   </div>
   <nav class="nav-bar">
-    <div class="d-flex justify-content-between  align-items-center">
+    <div class="d-flex justify-content-between  align-items-center flex-wrap">
       <div class="icon d-flex gap-2 align-items-center">
         <span class="material-symbols-rounded Today-icon">
           cloud
@@ -35,51 +35,26 @@
         <h3 class="nav-title">Weather</h3>
       </div>
       <div class="input-search">
-        <label for="inputSearch">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </label>
-        <input id="inputSearch" type="text" placeholder="Search city...">
+        <div><label for="inputSearch">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </label>
+          <input id="inputSearch" type="text" placeholder="Search city...">
+        </div>
+
+        <div class="autocomplete-container" id="autocompleteContainer">
+
+        </div>
       </div>
-      <button id="locationBtn"><i class="fa-solid fa-location-crosshairs"></i> Current Location</button>
+      <button id="locationBtn"><i class="fa-solid fa-location-crosshairs"></i></button>
     </div>
   </nav>
   <main class="container-fluid">
     <div class="row g-3">
-      <aside class="col-sm-5 col-md-4 col-xl-3">
+      <aside class="col-sm-5 col-md-4 col-xl-3 scrolling">
         <div class="aside-top">
-          <h5>Now</h5>
-          <div class="d-flex align-items-center">
-            <div>
-              <h2>20&deg;<sup>c</sup></h2>
-            </div>
-            <img src="media/clear.png" class="" alt="">
-          </div>
-          <h5>Clear</h5>
-          <hr>
-          <div class="d-flex gap-2">
-            <i class="fa-regular fa-calendar"></i>
-            <h6>Thersday 11, Jan</h6>
-          </div>
-          <div class="d-flex gap-2">
-            <i class="fa-solid fa-location-dot"></i>
-            <h6>Cairo,Egypt</h6>
-          </div>
-
-
         </div>
         <h4 class="mb-2">Days Forecast</h4>
         <div class="aside-bottom">
-          <div class="row align-items-center">
-            <div class="col-4 >
-              <p>Thersday</p>
-            </div>
-            <div class=" col-4">
-              <img src="media/clear.png" alt="">
-            </div>
-            <div class="col-4">
-              <p>11 Jan</p>
-            </div>
-          </div>
         </div>
       </aside>
       <div class="col-sm-7 col-md-8 col-xl-9">
@@ -114,169 +89,16 @@
                 </div>
               </div>
             </div>
-            <div class="col-6 col-xl-6">
-              <div class="rain-details my-3">
-                <p>Rain & Wind</p>
-                <div class="d-flex align-items-center gap-5">
-                  <div class="d-flex align-items-center gap-4">
-                    <span class="material-symbols-rounded Today-icon">
-                      water_drop
-                    </span>
-                    <div>
-                      <span>Chance of Rain</span>
-                      <h4>6:18 AM</h4>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center gap-4">
-                    <span class="material-symbols-rounded Today-icon">
-                      air
-                    </span>
-                    <div>
-                      <span>Wind</span>
-                      <h4>6 PM</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-3 ">
-              <div class="humidity">
-                <p>Humidity</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="material-symbols-rounded Today-icon">
-                    humidity_percentage
-                  </span>
-                  <h4>43<span class="text-prec">%</span></h4>
-                </div>
-              </div>
-            </div>
-            <div class="col-3 ">
-              <div class="humidity">
-                <p>Pressure</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="material-symbols-rounded Today-icon">
-                    airwave
-                  </span>
-                  <h4>1016<span class="text-prec">hPa</span></h4>
-                </div>
-              </div>
-            </div>
-            <div class="col-3 ">
-              <div class="humidity">
-                <p>visibility</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="material-symbols-rounded Today-icon">
-                    visibility
-                  </span>
-                  <h4>10<span class="text-prec">km</span></h4>
-                </div>
-              </div>
-            </div>
-            <div class="col-3 ">
-              <div class="humidity">
-                <p>Feels Like</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="material-symbols-rounded Today-icon">
-                    thermostat
-                  </span>
-                  <h4>20&deg;<sup>c</sup></h4>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="sun-details my-3">
-                <p>Sunrise & Sunset</p>
-                <div class="d-flex align-items-center gap-5">
-                  <div class="d-flex align-items-center gap-4">
-                    <i class="fa-regular fa-sun"></i>
-                    <div>
-                      <span>Sunrise</span>
-                      <h4>6:18 AM</h4>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center gap-4">
-                    <i class="fa-solid fa-moon"></i>
-                    <div>
-                      <span>Sunset</span>
-                      <h4>6 PM</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="moon-details my-3">
-                <p>Moonrise & Moonset</p>
-                <div class="d-flex align-items-center gap-5">
-                  <div class="d-flex align-items-center gap-4">
-                    <i class="fa-solid fa-moon"></i>
-                    <div>
-                      <span>Moonrise</span>
-                      <h4>6:18 AM</h4>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center gap-4">
-                    <i class="fa-regular fa-sun"></i>
-                    <div>
-                      <span>Moonset</span>
-                      <h4>6 PM</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <h4 class="my-3">Today at</h4>
         <div class="d-flex gap-3 hours">
-          <div class="card-item-hour">
-            <p>3 AM</p>
-            <img src="media/clear.png" class="" alt="">
-            <p>22&deg;</p>
-          </div>
-          <div class="card-item-hour">
-            <p>3 AM</p>
-            <img src="media/clear.png" class="" alt="">
-            <p>22&deg;</p>
-          </div>
-          <div class="card-item-hour">
-            <p>3 AM</p>
-            <img src="media/clear.png" class="" alt="">
-            <p>22&deg;</p>
-          </div>
-          <div class="card-item-hour">
-            <p>3 AM</p>
-            <img src="media/clear.png" class="" alt="">
-            <p>22&deg;</p>
-          </div>
-          <div class="card-item-hour">
-            <p>3 AM</p>
-            <img src="media/clear.png" class="" alt="">
-            <p>22&deg;</p>
-          </div>
-          <div class="card-item-hour">
-            <p>3 AM</p>
-            <img src="media/clear.png" class="" alt="">
-            <p>22&deg;</p>
-          </div>
-          <div class="card-item-hour">
-            <p>3 AM</p>
-            <img src="media/clear.png" class="" alt="">
-            <p>22&deg;</p>
-          </div>
-          <div class="card-item-hour">
-            <p>3 AM</p>
-            <img src="media/clear.png" class="" alt="">
-            <p>22&deg;</p>
-          </div>
         </div>
-
       </div>
     </div>
   </main>
 
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/main.js"></script>
 </body>
 
